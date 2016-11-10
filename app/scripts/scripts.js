@@ -1,5 +1,41 @@
 $(document).ready(function() {
   var listo = [];
+  getSavedList();
+  console.log(listo);
+
+  listo.forEach(function(task){
+    $('#newItemInput').val('');
+      $('#newList').append(
+          '<a href="#finish" class="" id="item">' +
+          '<li class="list-groupitem">' +
+          '<h3>' + task.task + '</h3>' +
+          '<span class="arrow pull-right">' +
+          '<i class="glyphicon glyphicon-arrow-right">' +
+          '</span>' +
+          '</li>' +
+          '</a>'
+      );
+  })
+  //  listo.forEach(function(element){addTask(element)});
+
+
+  //trying to get data from local storage
+  function getSavedList() {
+    var getList = localStorage.getItem("to-do-list");
+    listo = JSON.parse(getList);
+    console.log(listo);
+    if (!listo) {
+      listo=[];
+    }
+
+
+  }
+
+
+  function saveToDos() {
+    var list = JSON.stringify(listo);
+    localStorage.setItem("to-do-list", list);
+  }
 
   $('#newTaskForm').hide();
 
@@ -19,6 +55,12 @@ $(document).ready(function() {
   }
   task.remove();
 };
+
+  $('.save-todo-list').on('click', function() {
+    var list = JSON.stringify(listo);
+    localStorage.setItem("to-do-list", list);
+  });
+
 
   $(document).on('click', '#item', function(e) {
     e.preventDefault();
