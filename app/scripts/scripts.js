@@ -61,6 +61,10 @@ $(document).ready(function() {
     localStorage.setItem("to-do-list", list);
   });
 
+  $('.clear-todo-list').on('click', function() {
+    localStorage.clear();
+  })
+
 
   $(document).on('click', '#item', function(e) {
     e.preventDefault();
